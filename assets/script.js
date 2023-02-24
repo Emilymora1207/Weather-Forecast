@@ -1,34 +1,44 @@
 var searchInput = document.querySelector('.search');
 var searchBtn = document.querySelector('.searchBtn')
-var searchHistoryEl = document.querySelector('.searchHistory');
+var searchHistoryEl = document.querySelector('#searchHistory');
 var todayForm = document.querySelector('.today');
 var ForecastList = document.querySelector('.forecast');
 
 var today = dayjs();
-var searchHistoryList = []
+var searchHistoryList = [];
 
 
 searchBtn.addEventListener('click', getSearchedLocation);
 
 function getSearchedLocation(event) {
     event.preventDefault();
-    var searchedLocation = searchInput.value;
+    var searchedLocation = searchInput.value || event.target.className;
     // console.log(searchedLocation);
     var locationNoSpace = searchedLocation.replace(' ', '');
     console.log(locationNoSpace);
     GetForecastLocation(locationNoSpace);
-    storeSearchHistory();
-    // console.log(event);
+    if(searchHistoryEl === null){
+      searchHistoryList = [searchedLocation];
+    } else if (!searchHistoryList.includes(searchedLocation)) {
+
+      searchHistoryList.unshift(searchedLocation);
+      localStorage.setItem("searchHistoryList", JSON.stringify(searchHistoryList));
+      storeSearchHistory();
+    }
+    searchInput.value = "";
+
+    console.log(event);
 }
 
 
 function GetForecastLocation(location) {
+  console.log(location)
     var locationUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + location + '&limit=6&appid=e88cd06419645f7fd7b6ea89f17cda0c';
   
     fetch(locationUrl).then(function (response) {
       if (response.ok) {
         response.json().then(function (data) {
-          // console.log(data);
+          console.log(data);
           var locationLat = data[0].lat;
           var locationLon = data[0].lon;
           // console.log(locationLat);
@@ -45,7 +55,7 @@ function GetWeatherForecast(lat, lon) {
     fetch(latLonForecastUrl).then(function (response) {
       if (response.ok) {
         response.json().then(function (data) {
-          // console.log(data);
+          console.log(data);
             displayForecast(data);
         });
       }
@@ -63,9 +73,10 @@ function displayForecast(data){
     var todayLocationDate = document.createElement('h2');
     todayForm.appendChild(todayLocationDate);
     todayLocationDate.textContent= (data.city.name + " " + todayDate);
-    // var todayIcon = document.createElement('i');
-    // todayForm.appendChild(todayIcon);
-    // todayIcon.setAttribute('data-src', data.weather[0].icon);
+    var todayIcon = document.createElement('img');
+    todayForm.appendChild(todayIcon);
+    var iconurl = "http://openweathermap.org/img/w/" + data.list[0].weather[0].icon + ".png";
+    todayIcon.setAttribute('src', iconurl);
     var todayWeatherList = document.createElement('ul');
     todayForm.appendChild(todayWeatherList);
     var todayTempEl = document.createElement('li');
@@ -87,6 +98,10 @@ function displayForecast(data){
         var forecastDate = document.createElement('h3');
         fiveDayForm.appendChild(forecastDate);
         forecastDate.textContent = dateFormat;
+        var forecastIcon = document.createElement('img');
+        fiveDayForm.appendChild(forecastIcon);
+        var fiveIconUrl = "http://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png";
+        forecastIcon.setAttribute('src', fiveIconUrl);
         var forecastTemp = document.createElement('p');
         fiveDayForm.appendChild(forecastTemp);
         forecastTemp.textContent = ('temp: ' + data.list[i].main.temp + "\xB0F");
@@ -100,19 +115,15 @@ function displayForecast(data){
 };
 
 function storeSearchHistory(){
-  const searchedLocation = searchInput.value;
 
-  localStorage.setItem("searchHistoryList", JSON.stringify(searchHistoryList));
+
   const getSearchHistory = JSON.parse(localStorage.getItem("searchHistoryList"));
+  searchHistoryList = getSearchHistory;
   console.log(getSearchHistory);
   if (getSearchHistory !== null) {
-    if(getSearchHistory.includes(searchedLocation)) {
-      return;
-    } 
-    searchHistoryList.unshift(searchedLocation);
+
     searchHistoryEl.innerHTML = '';
     for(i=0; i<getSearchHistory.length; i++) {
-      searchHistoryEl.innerHTML = '';
       var historyBtn = document.createElement('button');
       searchHistoryEl.appendChild(historyBtn);
       historyBtn.setAttribute('class', getSearchHistory[i]);
@@ -121,8 +132,9 @@ function storeSearchHistory(){
 }
 }
 //   GetWeatherForecast()
+searchHistoryEl.addEventListener('click', getSearchedLocation)
 
-
+storeSearchHistory();
 
 
 

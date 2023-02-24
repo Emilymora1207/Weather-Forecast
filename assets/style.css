@@ -5,12 +5,14 @@
 body {
     padding: 0;
     margin: 0;
+    background-image: url(./james-butterly-iEPgfWwTpuM-unsplash.jpg);
+    background-size: cover;
 }
 
 header {
     display: flex;
     justify-content: center;
-    background-image: linear-gradient(to left,#3f6ebe, #3ebe4d);
+    background-image: linear-gradient(to left,#4f9dd1, #215e28);
 
 }
 
@@ -21,6 +23,20 @@ main {
     width: 100%;
     justify-content: center;
 
+}
+
+button {
+    width: 100px;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    box-shadow: 2px 2px 5px;
+    margin: 5px;
+    background-color: #215e287c;
+}
+
+form {
+    border-radius: 5px;
 }
 
 .row {
@@ -36,7 +52,7 @@ main {
 }
 
 .today {
-    background-image: linear-gradient(#3ebe4d73, #3f6ebe73);
+    background-image: linear-gradient(#ecfaee6e, #696d756c);
     width: 100%;
 }
 
@@ -48,7 +64,7 @@ main {
 .forecast form {
     padding: 15px;
     margin-right: 15px;
-    background-image: linear-gradient(#3ebe4d73, #3f6ebe73);
+    background-image: linear-gradient(#ecfaee6e, #696d756c);
 }
 
 li {
@@ -58,3 +74,20 @@ li {
 .hidden {
     display: none;
 }
+
+.hundred {
+    width: 100%;
+}
+
+#searchHistory {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media (min-width: 1400px) {
+    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        max-width: 20000px;
+    }
+}
+
