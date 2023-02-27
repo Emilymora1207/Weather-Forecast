@@ -126,17 +126,17 @@ function displayForecast(data){
 //changes the background image based on the type of weather in the searched location
 function displayBackground(data) {
   if (data.list[0].weather[0].main === 'Clouds') {
-    document.body.style.backgroundImage = "url('./assets/nikhil-dafare-4F1pwplJ18w-unsplash.jpg')";
+    document.body.style.backgroundImage = "url('./assets/images/nikhil-dafare-4F1pwplJ18w-unsplash.jpg')";
   } else if (data.list[0].weather[0].main === 'Rain') {
-    document.body.style.backgroundImage = "url('./assets/pexels-pixabay-414659.jpg')";
+    document.body.style.backgroundImage = "url('./assets/images/pexels-pixabay-414659.jpg')";
   } else if (data.list[0].weather[0].main === 'Snow') {
-    document.body.style.backgroundImage = "url('./assets/snow.jpg')";
+    document.body.style.backgroundImage = "url('./assets/images/snow.jpg')";
   } else if (data.list[0].weather[0].main === 'Thunderstorm') {
-    document.body.style.backgroundImage = "url('./assets/thunder.jpg')";
+    document.body.style.backgroundImage = "url('./assets/images/thunder.jpg')";
   } else if (data.list[0].weather[0].main === 'Drizzle') {
-    document.body.style.backgroundImage = "url('./assets/drizzle.jpg')";
+    document.body.style.backgroundImage = "url('./assets/images/drizzle.jpg')";
   }else {
-    document.body.style.backgroundImage = "url('./assets/james-butterly-iEPgfWwTpuM-unsplash.jpg')";
+    document.body.style.backgroundImage = "url('./assets/images/james-butterly-iEPgfWwTpuM-unsplash.jpg')";
   } 
 }
 
