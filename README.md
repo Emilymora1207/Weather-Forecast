@@ -22,5 +22,6 @@ Open Weather Map API
 
 MIT
 
-https://github.com/Emilymora1207/Weather-Forecast.git
+## Link to Application
 
+https://emilymora1207.github.io/Weather-Forecast/
