@@ -39,7 +39,7 @@ function getSearchedLocation(event) {
 //takes the searched location and turned it into lon and lat for api search 
 function GetForecastLocation(location) {
   console.log(location)
-    var locationUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + location + '&limit=6&appid=e88cd06419645f7fd7b6ea89f17cda0c';
+    var locationUrl = 'https://api.openweathermap.org/geo/1.0/direct?q=' + location + '&limit=6&appid=e88cd06419645f7fd7b6ea89f17cda0c';
   
     fetch(locationUrl).then(function (response) {
       if (response.ok) {
